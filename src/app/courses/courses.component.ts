@@ -1,5 +1,12 @@
+import { ConfirmationComponent } from './../shared/components/confirmation/confirmation.component';
 import { Course } from './../shared/course.model';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-courses',
@@ -15,7 +22,10 @@ export class CoursesComponent implements OnInit {
   ];
 
   selectedCourse: Course | null = null;
-  constructor() {}
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
+  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {}
 
@@ -25,8 +35,21 @@ export class CoursesComponent implements OnInit {
 
   deleteCourse(course: Course, e: Event) {
     e.stopPropagation();
-    if (confirm('Do You want to delete this message')) {
-      this.courses = this.courses.filter((co) => course.id !== co.id);
-    }
+    // dialogref and open the dialog
+    const dialogRef = this.dialog.open(ConfirmationComponent, {
+      data: { message: 'Are you sure you want to delete the course' },
+    });
+    //subscribe to dialog result
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`dialog result => ${result}`);
+      if (result) {
+        this.courses = this.courses.filter((co) => course.id !== co.id);
+        this._snackBar.open('Course Deleted Successfully', 'Splash', {
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+          duration: 2000,
+        });
+      }
+    });
   }
 }
