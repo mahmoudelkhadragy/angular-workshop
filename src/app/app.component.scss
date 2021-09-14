@@ -1,5 +1,6 @@
 mat-sidenav-container {
   min-height: 100vh;
+  background-color: #e9eff5;
 }
 .layout-container .mat-toolbar.mat-primary {
   position: fixed;
@@ -9,7 +10,7 @@ mat-sidenav-container {
   flex: 1 1 auto;
 }
 mat-sidenav-content {
-  padding-top: 70px;
+  padding-top: 75px;
 }
 
 mat-sidenav {

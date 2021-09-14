@@ -8,6 +8,14 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+// global colors
+:root {
+  --primary: #3f51b5;
+  --white: #ffffff;
+  --gray: #eee;
+  --breakpoint-tablet: 768px;
+}
+
 // global fix style
 
 .example-sidenav-container {
@@ -16,5 +24,16 @@ body {
   }
   .mat-list-base .mat-list-item .mat-list-item-content {
     flex-direction: row-reverse !important;
+  }
+}
+
+.courses {
+  mat-card-header {
+    .mat-card-header-text {
+      margin: 0 !important;
+    }
+  }
+  .mat-list-base .mat-list-item .mat-list-item-content {
+    flex-direction: row !important;
   }
 }

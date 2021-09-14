@@ -1,1 +1,37 @@
-<p>courses works!</p>
+<div class="courses" fxLayout fxLayout.xs="column" fxLayoutGap="30px">
+  <!-- courses list -->
+  <mat-card fxFlex="50">
+    <mat-card-header>
+      <mat-card-title>Courses List</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item
+          *ngFor="let course of courses"
+          (click)="selectCourse(course)"
+        >
+          <h3 matLine>{{ course.title }}</h3>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deleteCourse(course, $event)"
+          >
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- details -->
+  <mat-card fxFlex="50">
+    <mat-card-header>
+      <mat-card-title>Course Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p *ngIf="selectedCourse">
+        {{ selectedCourse | json }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
