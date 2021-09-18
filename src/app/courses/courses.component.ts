@@ -1,5 +1,6 @@
+import { CoursesService } from './../shared/services/courses.service';
 import { ConfirmationComponent } from './../shared/components/confirmation/confirmation.component';
-import { Course } from './../shared/course.model';
+import { Course } from '../shared/models/course.model';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
@@ -7,6 +8,7 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-courses',
@@ -14,23 +16,49 @@ import {
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit {
-  courses: Course[] = [
-    { id: 1, title: `course 1` },
-    { id: 2, title: 'course 2' },
-    { id: 3, title: 'course 3' },
-    { id: 4, title: 'course 4' },
-  ];
-
-  selectedCourse: Course | null = null;
+  courses: Course[];
+  selectedCourse: Course;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
-  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar) {}
+  constructor(
+    private coursesServise: CoursesService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.courses = this.coursesServise.allCourses();
+    this.resetSelectedCourse();
+  }
 
   selectCourse(course: Course) {
     this.selectedCourse = course;
+  }
+
+  formatLabel(value: number) {
+    return `${value}%`;
+  }
+
+  resetSelectedCourse() {
+    const emptyCourse = {
+      id: null,
+      title: '',
+      description: '',
+      percentComplete: 0,
+      favourite: false,
+    };
+    this.selectedCourse = emptyCourse;
+  }
+
+  saveCourse(form: NgForm) {
+    if (form.valid) {
+      if (form.value.id) {
+        this.coursesServise.updateCourse(form.value);
+      } else {
+        this.coursesServise.createCourse(form.value);
+      }
+    }
   }
 
   deleteCourse(course: Course, e: Event) {
@@ -43,7 +71,7 @@ export class CoursesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`dialog result => ${result}`);
       if (result) {
-        this.courses = this.courses.filter((co) => course.id !== co.id);
+        this.coursesServise.deleteCourse(course.id);
         this._snackBar.open('Course Deleted Successfully', 'Splash', {
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
@@ -51,5 +79,9 @@ export class CoursesComponent implements OnInit {
         });
       }
     });
+  }
+
+  cancel() {
+    this.resetSelectedCourse();
   }
 }

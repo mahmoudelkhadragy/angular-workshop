@@ -9,6 +9,18 @@ mat-card {
     padding-bottom: 6px;
     border-bottom: 2px solid var(--primary);
   }
+  mat-form-field {
+    width: 100%;
+  }
+  .percentage {
+    margin-top: 10px;
+    p {
+      margin: 0;
+    }
+    mat-slider {
+      width: 100%;
+    }
+  }
   mat-list {
     overflow: hidden;
     mat-list-item {
@@ -26,9 +38,6 @@ mat-card {
     }
   }
 }
-
-// @media (min-width: 768px) {
-// }
 
 @media screen and (max-width: 768px) {
   mat-list {
