@@ -10,6 +10,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { HomeComponent } from './home/home.component';
 import { ConfirmationComponent } from './shared/components/confirmation/confirmation.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
     MaterialModule,
     FlexLayoutModule,
   ],

@@ -28,8 +28,14 @@ export class CoursesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.courses = this.coursesServise.allCourses();
+    this.loadCourses();
     this.resetSelectedCourse();
+  }
+
+  loadCourses() {
+    this.coursesServise
+      .allCourses()
+      .subscribe((courses) => (this.courses = courses));
   }
 
   selectCourse(course: Course) {
@@ -54,9 +60,15 @@ export class CoursesComponent implements OnInit {
   saveCourse(form: NgForm) {
     if (form.valid) {
       if (form.value.id) {
-        this.coursesServise.updateCourse(form.value);
+        this.coursesServise.updateCourse(form.value).subscribe((course) => {
+          console.log('course is updated', course);
+          this.loadCourses();
+        });
       } else {
-        this.coursesServise.createCourse(form.value);
+        this.coursesServise.createCourse(form.value).subscribe((course) => {
+          console.log('course is created', course);
+          this.loadCourses();
+        });
       }
     }
   }
@@ -71,11 +83,14 @@ export class CoursesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`dialog result => ${result}`);
       if (result) {
-        this.coursesServise.deleteCourse(course.id);
-        this._snackBar.open('Course Deleted Successfully', 'Splash', {
-          horizontalPosition: this.horizontalPosition,
-          verticalPosition: this.verticalPosition,
-          duration: 2000,
+        this.coursesServise.deleteCourse(course.id).subscribe((course) => {
+          console.log('course is deleted', course);
+          this.loadCourses();
+          this._snackBar.open('Course Deleted Successfully', 'Splash', {
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+            duration: 2000,
+          });
         });
       }
     });
