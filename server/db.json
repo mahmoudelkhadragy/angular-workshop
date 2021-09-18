@@ -1,0 +1,18 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "title": "Angular 9 Fundamentals",
+      "description": "Learn the fundamentals of Angular 9",
+      "percentComplete": 26,
+      "favorite": true
+    },
+    {
+      "id": 2,
+      "title": "new course 2",
+      "description": "see our course now",
+      "percentComplete": 3,
+      "favourite": true
+    }
+  ]
+}
