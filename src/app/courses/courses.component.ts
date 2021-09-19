@@ -73,8 +73,8 @@ export class CoursesComponent implements OnInit {
     }
   }
 
-  deleteCourse(course: Course, e: Event) {
-    e.stopPropagation();
+  deleteCourse(obj: { course: Course; e: Event }) {
+    obj.e.stopPropagation();
     // dialogref and open the dialog
     const dialogRef = this.dialog.open(ConfirmationComponent, {
       data: { message: 'Are you sure you want to delete the course' },
@@ -83,7 +83,7 @@ export class CoursesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`dialog result => ${result}`);
       if (result) {
-        this.coursesServise.deleteCourse(course.id).subscribe((course) => {
+        this.coursesServise.deleteCourse(obj.course.id).subscribe((course) => {
           console.log('course is deleted', course);
           this.loadCourses();
           this._snackBar.open('Course Deleted Successfully', 'Splash', {
