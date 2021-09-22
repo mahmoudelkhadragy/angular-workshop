@@ -1,0 +1,27 @@
+mat-list {
+  overflow: hidden;
+  mat-list-item {
+    transition: all 0.2s ease-in-out;
+    border-radius: 5px;
+    display: block;
+    padding: 0 10px;
+    width: auto;
+    h3 {
+      text-transform: capitalize;
+    }
+    &:hover {
+      background-color: var(--gray);
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  mat-list {
+    mat-list-item {
+      padding: 0 !important;
+      h3 {
+        padding-left: 10px;
+      }
+    }
+  }
+}

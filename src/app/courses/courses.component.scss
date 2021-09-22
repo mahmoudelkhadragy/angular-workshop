@@ -9,43 +9,4 @@ mat-card {
     padding-bottom: 6px;
     border-bottom: 2px solid var(--primary);
   }
-  mat-form-field {
-    width: 100%;
-  }
-  .percentage {
-    margin-top: 10px;
-    p {
-      margin: 0;
-    }
-    mat-slider {
-      width: 100%;
-    }
-  }
-  mat-list {
-    overflow: hidden;
-    mat-list-item {
-      transition: all 0.2s ease-in-out;
-      border-radius: 5px;
-      display: block;
-      padding: 0 10px;
-      width: auto;
-      h3 {
-        text-transform: capitalize;
-      }
-      &:hover {
-        background-color: var(--gray);
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  mat-list {
-    mat-list-item {
-      padding: 0 !important;
-      h3 {
-        padding-left: 10px;
-      }
-    }
-  }
 }

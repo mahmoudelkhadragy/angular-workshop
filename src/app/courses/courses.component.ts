@@ -42,10 +42,6 @@ export class CoursesComponent implements OnInit {
     this.selectedCourse = course;
   }
 
-  formatLabel(value: number) {
-    return `${value}%`;
-  }
-
   resetSelectedCourse() {
     const emptyCourse = {
       id: null,
